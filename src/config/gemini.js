@@ -2,13 +2,19 @@ import {
     GoogleGenerativeAI,
     HarmCategory,
     HarmBlockThreshold,
-} from "@google/generative-ai"; 
-  
-const apiKey = ""; // Make sure your API key is correct
+} from "@google/generative-ai";
+
+const apiKey = import.meta.env.VITE_API_KEY;
+const modelName = "gemini-1.5-flash"; // Hardcoded model name
+
+if (!apiKey) {
+    throw new Error("API key must be provided");
+}
+
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-    model: "gemini-1.5-flash",
+    model: modelName,
 });
 
 const generationConfig = {

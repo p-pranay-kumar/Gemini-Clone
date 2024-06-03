@@ -31,12 +31,6 @@ const Main = () => {
     setInput('');
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      handleSend();
-    }
-  };
-
   const sanitizeHTML = (html) => {
     return { __html: html };
   };
@@ -98,13 +92,7 @@ const Main = () => {
 
         <div className="main-bottom">
           <div className="search-box">
-            <input 
-              onChange={(e) => setInput(e.target.value)} 
-              value={input} 
-              type="text" 
-              placeholder='Enter a prompt here'
-              onKeyDown={handleKeyDown} // Add this line
-            />
+            <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Enter a prompt here' />
             <div>
               <img src={assets.gallery_icon} alt="" />
               <img src={assets.mic_icon} alt="" />
