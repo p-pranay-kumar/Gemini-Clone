@@ -21,14 +21,21 @@ const Main = () => {
   }, [isNewChat, setInput, setResultData, setIsNewChat]);
 
   const handleSend = async () => {
+    console.log("Sending prompt:", input); // Add this line for debugging
     if (input.trim() === '') return;
-
     setRecentPrompt(input);
     setLoading(true);
     setIsSent(true);
     await onSent(input);
     setLoading(false);
     setInput('');
+    setIsNewChat(false); // Reset isNewChat state after sending a new prompt
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSend();
+    }
   };
 
   const sanitizeHTML = (html) => {
@@ -92,7 +99,13 @@ const Main = () => {
 
         <div className="main-bottom">
           <div className="search-box">
-            <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Enter a prompt here' />
+            <input 
+              onChange={(e) => setInput(e.target.value)} 
+              value={input} 
+              type="text" 
+              placeholder='Enter a prompt here'
+              onKeyPress={handleKeyPress} // Add event listener for Enter key press
+            />
             <div>
               <img src={assets.gallery_icon} alt="" />
               <img src={assets.mic_icon} alt="" />

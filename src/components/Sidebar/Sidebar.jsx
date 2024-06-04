@@ -5,15 +5,19 @@ import { context } from '../../context/context';
 
 const Sidebar = () => {
     const [extended, setExtended] = useState(false);
-    const { onSent, prevPrompts, setRecentPrompt, setIsNewChat } = useContext(context);
+    const { onSent, prevPrompts, recentPrompt, setRecentPrompt, setIsNewChat } = useContext(context);
 
     const loadPrompt = async (prompt) => {
-        setRecentPrompt(prompt);
-        await onSent(prompt);
+        console.log("Loading prompt:", prompt); // Add this line for debugging
+        setIsNewChat(false); // Reset isNewChat state
+        if (prompt !== recentPrompt) {
+            setRecentPrompt(prompt);
+            await onSent(prompt);
+        }
     };
 
     const handleNewChat = () => {
-        setIsNewChat(true); // Set the new chat state
+        setIsNewChat(true); // Set isNewChat state to true to start a new chat
         setRecentPrompt(""); // Clear the recent prompt
     };
 

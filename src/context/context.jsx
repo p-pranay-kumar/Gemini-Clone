@@ -43,7 +43,10 @@ const ContextProvider = (props) => {
             }
             setLoading(false);
             setRecentPrompt(prompt);
-            setPrevPrompts([...prevPrompts, prompt]);
+            // Only add the prompt to prevPrompts if it doesn't already exist
+            if (!prevPrompts.includes(prompt)) {
+                setPrevPrompts([...prevPrompts, prompt]);
+            }
         } catch (error) {
             setLoading(false);
             console.error("Error sending prompt:", error);
